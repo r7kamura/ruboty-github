@@ -1,24 +1,16 @@
-require "octokit"
-
 module Ellen
   module Handlers
     class Github < Base
       on(/create issue "(?<title>.+)" on (?<repo>.+)\z/, name: "create_issue", description: "Create a new issue")
 
-      env :GITHUB_ACCESS_TOKEN, "Github Access Token with `repo` or `public_repo` scope"
+      on(/remember my github token (?<token>.+)\z/, name: "remember", description: "Remember sender's GitHub access token")
 
       def create_issue(message)
-        client.create_issue(message[:repo], message[:title], nil)
+        Ellen::Github::Actions::CreateIssue.new(message: message, robot: robot).call
       end
 
-      private
-
-      def client
-        @client ||= Octokit::Client.new(access_token: access_token)
-      end
-
-      def access_token
-        ENV["GITHUB_ACCESS_TOKEN"]
+      def remember(message)
+        Ellen::Github::Actions::Remember.new(message: message, robot: robot).call
       end
     end
   end
