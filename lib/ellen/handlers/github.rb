@@ -5,7 +5,7 @@ module Ellen
     class Github < Base
       on(/create issue "(?<title>.+)" on (?<repo>.+)\z/, name: "create_issue", description: "Create a new issue")
 
-      env :GITHUB_ACCESS_TOKEN, "Github Access Token"
+      env :GITHUB_ACCESS_TOKEN, "Github Access Token with `repo` or `public_repo` scope"
 
       def create_issue(message)
         client.create_issue(message[:repo], message[:title], nil)

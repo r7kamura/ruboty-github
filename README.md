@@ -8,5 +8,5 @@ Manage GitHub via Ellen.
 
 ## ENV
 ```
-GITHUB_ACCESS_TOKEN - Github Access Token
+GITHUB_ACCESS_TOKEN - Github Access Token with `repo` or `public_repo` scope"
 ```
