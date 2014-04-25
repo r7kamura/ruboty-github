@@ -1,3 +1,6 @@
+require "simplecov"
+SimpleCov.start
+
 require "ellen/github"
 require "webmock/rspec"
 
