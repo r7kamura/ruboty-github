@@ -2,7 +2,7 @@
 Manage GitHub via Ellen.
 
 ## Install
-```
+```ruby
 # Gemfile
 gem "ellen-github"
 ```
