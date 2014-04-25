@@ -1,6 +1,12 @@
 # Ellen::Github
 Manage GitHub via Ellen.
 
+## Install
+```
+# Gemfile
+gem "ellen-github"
+```
+
 ## Usage
 ```
 @ellen create issue "<title>" on <username>/<repository> - Create a new Issue
