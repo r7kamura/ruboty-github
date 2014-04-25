@@ -29,7 +29,7 @@ module Ellen
         rescue Octokit::NotFound
           robot.say("Could not find that repository")
         rescue => exception
-          robot.say("Failed (#{exception.class})")
+          robot.say("Failed by #{exception.class}")
         end
 
         def issue
