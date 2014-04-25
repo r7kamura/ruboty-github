@@ -17,7 +17,7 @@ module Ellen
         private
 
         def report
-          robot.say("Remembered #{robot.name}'s github access token")
+          robot.say("Remembered #{sender_name}'s github access token")
         end
 
         def remember
