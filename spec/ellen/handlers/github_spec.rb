@@ -2,14 +2,6 @@ require "spec_helper"
 require "json"
 
 describe Ellen::Handlers::Github do
-  before do
-    ENV["GITHUB_ACCESS_TOKEN"] = github_access_token
-  end
-
-  after do
-    ENV["GITHUB_ACCESS_TOKEN"] = nil
-  end
-
   let(:robot) do
     Ellen::Robot.new
   end
@@ -18,28 +10,21 @@ describe Ellen::Handlers::Github do
     "dummy"
   end
 
-  describe "#initialize" do
-    context "without GITHUB_ACCESS_TOKEN" do
-      let(:github_access_token) do
-        nil
-      end
+  let(:sender) do
+    "bob"
+  end
 
-      it "dies" do
-        Ellen.should_receive(:die)
-        described_class.new(robot)
-      end
-    end
+  let(:channel) do
+    "#general"
+  end
 
-    context "with GITHUB_ACCESS_TOKEN" do
-      it "does not die" do
-        Ellen.should_not_receive(:die)
-        described_class.new(robot)
-      end
-    end
+  let(:access_tokens) do
+    robot.brain.data[Ellen::Github::Actions::Base::NAMESPACE] ||= {}
   end
 
   describe "#create_issue" do
     before do
+      Ellen.logger.stub(:info)
       stub_request(:post, "https://api.github.com/repos/#{user}/#{repository}/issues").
         with(
           body: {
@@ -65,8 +50,50 @@ describe Ellen::Handlers::Github do
       "This is a test issue"
     end
 
-    it "creates a new issue with given title on given repository" do
-      robot.receive(body: %<ellen create issue "#{title}" on #{user}/#{repository}>)
+    let(:body) do
+      %<ellen create issue "#{title}" on #{user}/#{repository}>
+    end
+
+    context "when access token for the sender is remembered" do
+      before do
+        access_tokens.merge!(sender => github_access_token)
+      end
+
+      it "creates a new issue with given title on given repository" do
+        robot.receive(
+          body: body,
+          from: sender,
+          to: channel,
+        )
+        a_request(:any, //).should have_been_made
+      end
+    end
+
+    context "when access token for the sender is not remembered" do
+      it "does not create a new issue" do
+        robot.receive(
+          body: body,
+          from: sender,
+          to: channel,
+        )
+        a_request(:any, //).should_not have_been_made
+      end
+    end
+  end
+
+  describe "#remember" do
+    let(:body) do
+      "@ellen remember my github token #{github_access_token}"
+    end
+
+    it "remembers sender's access token in its brain" do
+      Ellen.logger.should_receive(:info).with("Remembered #{sender}'s github access token")
+      robot.receive(
+        body: body,
+        from: sender,
+        to: channel,
+      )
+      access_tokens[sender].should == github_access_token
     end
   end
 end

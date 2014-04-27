@@ -6,11 +6,11 @@ module Ellen
       on(/remember my github token (?<token>.+)\z/, name: "remember", description: "Remember sender's GitHub access token")
 
       def create_issue(message)
-        Ellen::Github::Actions::CreateIssue.new(message: message, robot: robot).call
+        Ellen::Github::Actions::CreateIssue.new(message).call
       end
 
       def remember(message)
-        Ellen::Github::Actions::Remember.new(message: message, robot: robot).call
+        Ellen::Github::Actions::Remember.new(message).call
       end
     end
   end

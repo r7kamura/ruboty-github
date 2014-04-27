@@ -2,13 +2,6 @@ module Ellen
   module Github
     module Actions
       class Remember < Base
-        attr_reader :message, :robot
-
-        def initialize(options)
-          @message = options[:message]
-          @robot = options[:robot]
-        end
-
         def call
           remember
           report
@@ -17,7 +10,7 @@ module Ellen
         private
 
         def report
-          robot.say("Remembered #{sender_name}'s github access token")
+          message.reply("Remembered #{sender_name}'s github access token")
         end
 
         def remember

@@ -6,17 +6,16 @@ module Ellen
       class Base
         NAMESPACE = "github"
 
-        attr_reader :message, :robot
+        attr_reader :message
 
-        def initialize(options)
-          @message = options[:message]
-          @robot = options[:robot]
+        def initialize(message)
+          @message = message
         end
 
         private
 
         def access_tokens
-          robot.brain.data[NAMESPACE] ||= {}
+          message.robot.brain.data[NAMESPACE] ||= {}
         end
 
         def sender_name

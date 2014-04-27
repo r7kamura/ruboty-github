@@ -15,21 +15,21 @@ module Ellen
         private
 
         def require_access_token
-          robot.say("I don't know your github access token")
+          message.reply("I don't know your github access token")
         end
 
         def created
-          robot.say("Created a new Issue")
+          message.reply("Created a new Issue")
         end
 
         def create
-          robot.say("Created #{issue.html_url}")
+          message.reply("Created #{issue.html_url}")
         rescue Octokit::Unauthorized
-          robot.say("Failed in authentication (401)")
+          message.reply("Failed in authentication (401)")
         rescue Octokit::NotFound
-          robot.say("Could not find that repository")
+          message.reply("Could not find that repository")
         rescue => exception
-          robot.say("Failed by #{exception.class}")
+          message.reply("Failed by #{exception.class}")
         end
 
         def issue
