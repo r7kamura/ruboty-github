@@ -89,6 +89,66 @@ describe Ellen::Handlers::Github do
     end
   end
 
+  describe "#close_issue" do
+    before do
+      stub_request(:get, "https://api.github.com/repos/#{user}/#{repository}/issues/#{issue_number}").
+        with(
+          headers: {
+            Authorization: "token #{github_access_token}"
+          },
+        ).
+        to_return(
+          body: {
+            state: issue_status,
+            html_url: html_url,
+          }.to_json,
+          headers: {
+            "Content-Type" => "application/json",
+          },
+        )
+      stub_request(:patch, "https://api.github.com/repos/#{user}/#{repository}/issues/#{issue_number}").
+        with(
+          body: {
+            state: "closed",
+          }.to_json,
+          headers: {
+            Authorization: "token #{github_access_token}"
+          },
+        )
+    end
+
+    let(:html_url) do
+      "http://example.com/#{user}/#{repository}/issues/#{issue_number}"
+    end
+
+    let(:issue_status) do
+      "open"
+    end
+
+    let(:body) do
+      "@ellen close issue #{user}/#{repository}##{issue_number}"
+    end
+
+    let(:issue_number) do
+      1
+    end
+
+    include_examples "requires access token without access token"
+
+    context "with closed issue" do
+      it "replies so" do
+        Ellen.logger.should_receive(:info).with("Closed #{html_url}")
+        call
+      end
+    end
+
+    context "with access token" do
+      it "closes specified issue" do
+        call
+      end
+    end
+  end
+
   describe "#remember" do
     let(:body) do
       "@ellen remember my github token #{github_access_token}"

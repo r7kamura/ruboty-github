@@ -9,6 +9,7 @@ gem "ellen-github"
 
 ## Usage
 ```
+@ellen close issue <username>/<repository>#<number>      - Close an Issue
 @ellen create issue "<title>" on <username>/<repository> - Create a new Issue
 @ellen remember my github token <token>                  - Remember sender's GitHub access token
 ```
