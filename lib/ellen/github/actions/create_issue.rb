@@ -33,7 +33,7 @@ module Ellen
         end
 
         def body
-          nil
+          message[:description]
         end
       end
     end

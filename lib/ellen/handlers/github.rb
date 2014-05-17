@@ -2,7 +2,7 @@ module Ellen
   module Handlers
     class Github < Base
       on(
-        /create issue "(?<title>.+)" on (?<repo>.+)\z/,
+        /create issue "(?<title>.+)" on (?<repo>.+)(?:\n(?<description>[\s\S]+))?\z/,
         name: "create_issue",
         description: "Create a new issue",
       )
