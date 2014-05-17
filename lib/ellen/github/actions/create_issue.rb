@@ -1,5 +1,3 @@
-require "octokit"
-
 module Ellen
   module Github
     module Actions
