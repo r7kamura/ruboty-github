@@ -19,6 +19,12 @@ module Ellen
         description: "Close an issue",
       )
 
+      on(
+        /pull request "(?<title>.+)" from (?<from>.+) to (?<to>)(?:\n(?<description>[\s\S]+))?\z/,
+        name: "create_pull_request",
+        description: "Create a pull request",
+      )
+
       def create_issue(message)
         Ellen::Github::Actions::CreateIssue.new(message).call
       end
@@ -29,6 +35,10 @@ module Ellen
 
       def remember(message)
         Ellen::Github::Actions::Remember.new(message).call
+      end
+
+      def create_pull_request(message)
+        Ellen::Github::Actions::CreatePullRequest.new(message).call
       end
     end
   end
