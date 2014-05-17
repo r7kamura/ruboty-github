@@ -1,3 +1,6 @@
+## 0.0.6
+* Add Create & Merge Pull Request commands
+
 ## 0.0.5
 * Description support
 
