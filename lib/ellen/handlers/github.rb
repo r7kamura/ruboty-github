@@ -25,6 +25,12 @@ module Ellen
         description: "Create a pull request",
       )
 
+      on(
+        /merge pull request (?<repo>.+)#(?<number>\d+)\z/,
+        name: "merge_pull_request",
+        description: "Merge pull request",
+      )
+
       def create_issue(message)
         Ellen::Github::Actions::CreateIssue.new(message).call
       end
@@ -39,6 +45,10 @@ module Ellen
 
       def create_pull_request(message)
         Ellen::Github::Actions::CreatePullRequest.new(message).call
+      end
+
+      def merge_pull_request(message)
+        Ellen::Github::Actions::MergePullRequest.new(message).call
       end
     end
   end
