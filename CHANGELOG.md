@@ -1,3 +1,6 @@
+## 0.0.5
+* Description support
+
 ## 0.0.4
 * Add close command
 
