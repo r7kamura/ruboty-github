@@ -11,6 +11,8 @@ gem "ellen-github"
 ```
 @ellen close issue <repo>#<number>                       - Close an Issue
 @ellen create issue "<title>" on <repo>[\n<description>] - Create a new Issue
+@ellen merge <repo>#<number>                             - Merge a Pull Request
+@ellen pull request "<title>" from <from> to <to>        - Create a new Pull Request
 @ellen remember my github token <token>                  - Remember sender's GitHub access token
 ```
 
