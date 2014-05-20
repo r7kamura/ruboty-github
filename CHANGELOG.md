@@ -1,3 +1,6 @@
+## 0.0.7
+* Use Ellen::Message#from_name as user identifier
+
 ## 0.0.6
 * Add Create & Merge Pull Request commands
 
