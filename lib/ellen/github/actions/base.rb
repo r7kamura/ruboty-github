@@ -17,7 +17,7 @@ module Ellen
         end
 
         def sender_name
-          message.from
+          message.from_name
         end
 
         def require_access_token
