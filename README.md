@@ -16,5 +16,10 @@ gem "ellen-github"
 @ellen remember my github token <token>                  - Remember sender's GitHub access token
 ```
 
+## ENV
+```
+GITHUB_HOST - Pass GitHub Host if needed (e.g. github.example.com)
+```
+
 ## Image
 ![](https://raw.githubusercontent.com/r7kamura/ellen-github/master/images/screenshot.png)

@@ -1,6 +1,8 @@
 module Ellen
   module Handlers
     class Github < Base
+      env :GITHUB_HOST, "Pass GitHub Host if needed (e.g. github.example.com)", optional: true
+
       on(
         /create issue "(?<title>.+)" on (?<repo>.+)(?:\n(?<description>[\s\S]+))?\z/,
         name: "create_issue",

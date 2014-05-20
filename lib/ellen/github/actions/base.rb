@@ -33,11 +33,35 @@ module Ellen
         end
 
         def client
-          Octokit::Client.new(access_token: access_token)
+          Octokit::Client.new(client_options)
         end
 
         def repository
           message[:repo]
+        end
+
+        def client_options
+          client_options_with_nil_value.reject {|key, value| value.nil? }
+        end
+
+        def client_options_with_nil_value
+          {
+            access_token: access_token,
+            api_endpoint: api_endpoint,
+            web_endpoint: web_endpoint,
+          }
+        end
+
+        def web_endpoint
+          "https://#{github_host}/" if github_host
+        end
+
+        def api_endpoint
+          "https://#{github_host}/api/v3" if github_host
+        end
+
+        def github_host
+          ENV["GITHUB_HOST"]
         end
       end
     end
