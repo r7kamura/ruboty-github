@@ -1,3 +1,6 @@
+## 0.0.8
+* Support Github Enterprise
+
 ## 0.0.7
 * Use Ellen::Message#from_name as user identifier
 
