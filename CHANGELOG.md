@@ -1,3 +1,6 @@
+## 0.0.9
+* Rename: Ellen -> Ruboty
+
 ## 0.0.8
 * Support Github Enterprise
 
