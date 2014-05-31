@@ -58,7 +58,7 @@ describe Ruboty::Handlers::Github do
 
   describe "#create_issue" do
     before do
-      stub_request(:post, "https://api.github.com/repos/#{user}/#{repository}/issues").
+      stub_request(:post, "https://github.com/api/v3/repos/#{user}/#{repository}/issues").
         with(
           body: {
             labels: nil,
@@ -91,7 +91,7 @@ describe Ruboty::Handlers::Github do
 
   describe "#close_issue" do
     before do
-      stub_request(:get, "https://api.github.com/repos/#{user}/#{repository}/issues/#{issue_number}").
+      stub_request(:get, "https://github.com/api/v3/repos/#{user}/#{repository}/issues/#{issue_number}").
         with(
           headers: {
             Authorization: "token #{github_access_token}"
@@ -106,7 +106,7 @@ describe Ruboty::Handlers::Github do
             "Content-Type" => "application/json",
           },
         )
-      stub_request(:patch, "https://api.github.com/repos/#{user}/#{repository}/issues/#{issue_number}").
+      stub_request(:patch, "https://github.com/api/v3/repos/#{user}/#{repository}/issues/#{issue_number}").
         with(
           body: {
             state: "closed",
