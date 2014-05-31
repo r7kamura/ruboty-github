@@ -1,14 +1,14 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ellen/github/version'
+require 'ruboty/github/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ellen-github"
-  spec.version       = Ellen::Github::VERSION
+  spec.name          = "ruboty-github"
+  spec.version       = Ruboty::Github::VERSION
   spec.authors       = ["Ryo Nakamura"]
   spec.email         = ["r7kamura@gmail.com"]
-  spec.summary       = "Manage GitHub via Ellen."
-  spec.homepage      = "https://github.com/r7kamura/ellen-github"
+  spec.summary       = "Manage GitHub via Ruboty."
+  spec.homepage      = "https://github.com/r7kamura/ruboty-github"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "activesupport"
-  spec.add_dependency "ellen", ">= 0.2.7"
+  spec.add_dependency "ruboty", ">= 0.2.7"
   spec.add_dependency "octokit"
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"

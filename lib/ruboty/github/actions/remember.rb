@@ -1,4 +1,4 @@
-module Ellen
+module Ruboty
   module Github
     module Actions
       class Remember < Base

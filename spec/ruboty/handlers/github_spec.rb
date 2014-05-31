@@ -1,13 +1,13 @@
 require "spec_helper"
 require "json"
 
-describe Ellen::Handlers::Github do
+describe Ruboty::Handlers::Github do
   before do
     access_tokens.merge!(sender => stored_access_token)
   end
 
   let(:robot) do
-    Ellen::Robot.new
+    Ruboty::Robot.new
   end
 
   let(:stored_access_token) do
@@ -35,7 +35,7 @@ describe Ellen::Handlers::Github do
   end
 
   let(:access_tokens) do
-    robot.brain.data[Ellen::Github::Actions::Base::NAMESPACE] ||= {}
+    robot.brain.data[Ruboty::Github::Actions::Base::NAMESPACE] ||= {}
   end
 
   let(:call) do
@@ -49,7 +49,7 @@ describe Ellen::Handlers::Github do
       end
 
       it "requires access token" do
-        Ellen.logger.should_receive(:info).with("I don't know your github access token")
+        Ruboty.logger.should_receive(:info).with("I don't know your github access token")
         call
         a_request(:any, //).should_not have_been_made
       end
@@ -76,7 +76,7 @@ describe Ellen::Handlers::Github do
     end
 
     let(:body) do
-      %<ellen create issue "#{title}" on #{user}/#{repository}>
+      %<ruboty create issue "#{title}" on #{user}/#{repository}>
     end
 
     include_examples "requires access token without access token"
@@ -126,7 +126,7 @@ describe Ellen::Handlers::Github do
     end
 
     let(:body) do
-      "@ellen close issue #{user}/#{repository}##{issue_number}"
+      "@ruboty close issue #{user}/#{repository}##{issue_number}"
     end
 
     let(:issue_number) do
@@ -137,7 +137,7 @@ describe Ellen::Handlers::Github do
 
     context "with closed issue" do
       it "replies so" do
-        Ellen.logger.should_receive(:info).with("Closed #{html_url}")
+        Ruboty.logger.should_receive(:info).with("Closed #{html_url}")
         call
       end
     end
@@ -151,11 +151,11 @@ describe Ellen::Handlers::Github do
 
   describe "#remember" do
     let(:body) do
-      "@ellen remember my github token #{github_access_token}"
+      "@ruboty remember my github token #{github_access_token}"
     end
 
     it "remembers sender's access token in its brain" do
-      Ellen.logger.should_receive(:info).with("Remembered #{sender}'s github access token")
+      Ruboty.logger.should_receive(:info).with("Remembered #{sender}'s github access token")
       call
       access_tokens[sender].should == github_access_token
     end

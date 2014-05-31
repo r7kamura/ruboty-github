@@ -2,7 +2,7 @@
 * Support Github Enterprise
 
 ## 0.0.7
-* Use Ellen::Message#from_name as user identifier
+* Use Ruboty::Message#from_name as user identifier
 
 ## 0.0.6
 * Add Create & Merge Pull Request commands
@@ -14,7 +14,7 @@
 * Add close command
 
 ## 0.0.3
-* Support Ellen v0.2.0
+* Support Ruboty v0.2.0
 
 ## 0.0.2
 * Memorize access token and use it to create a new issue

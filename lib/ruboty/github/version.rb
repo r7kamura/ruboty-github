@@ -1,4 +1,4 @@
-module Ellen
+module Ruboty
   module Github
     VERSION = "0.0.8"
   end

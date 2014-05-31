@@ -1,7 +1,7 @@
 require "simplecov"
 SimpleCov.start
 
-require "ellen/github"
+require "ruboty/github"
 require "webmock/rspec"
 
 RSpec.configure do |config|

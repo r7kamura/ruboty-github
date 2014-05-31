@@ -1,19 +1,19 @@
-# Ellen::Github
-Manage GitHub via Ellen.
+# Ruboty::Github
+Manage GitHub via Ruboty.
 
 ## Install
 ```ruby
 # Gemfile
-gem "ellen-github"
+gem "ruboty-github"
 ```
 
 ## Usage
 ```
-@ellen close issue <repo>#<number>                       - Close an Issue
-@ellen create issue "<title>" on <repo>[\n<description>] - Create a new Issue
-@ellen merge pull request<repo>#<number>                 - Merge a Pull Request
-@ellen pull request "<title>" from <from> to <to>        - Create a new Pull Request
-@ellen remember my github token <token>                  - Remember sender's GitHub access token
+@ruboty close issue <repo>#<number>                       - Close an Issue
+@ruboty create issue "<title>" on <repo>[\n<description>] - Create a new Issue
+@ruboty merge pull request<repo>#<number>                 - Merge a Pull Request
+@ruboty pull request "<title>" from <from> to <to>        - Create a new Pull Request
+@ruboty remember my github token <token>                  - Remember sender's GitHub access token
 ```
 
 ## ENV
@@ -22,4 +22,4 @@ GITHUB_HOST - Pass GitHub Host if needed (e.g. github.example.com)
 ```
 
 ## Image
-![](https://raw.githubusercontent.com/r7kamura/ellen-github/master/images/screenshot.png)
+![](https://raw.githubusercontent.com/r7kamura/ruboty-github/master/images/screenshot.png)

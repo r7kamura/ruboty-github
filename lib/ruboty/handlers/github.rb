@@ -1,4 +1,4 @@
-module Ellen
+module Ruboty
   module Handlers
     class Github < Base
       env :GITHUB_HOST, "Pass GitHub Host if needed (e.g. github.example.com)", optional: true
@@ -34,23 +34,23 @@ module Ellen
       )
 
       def create_issue(message)
-        Ellen::Github::Actions::CreateIssue.new(message).call
+        Ruboty::Github::Actions::CreateIssue.new(message).call
       end
 
       def close_issue(message)
-        Ellen::Github::Actions::CloseIssue.new(message).call
+        Ruboty::Github::Actions::CloseIssue.new(message).call
       end
 
       def remember(message)
-        Ellen::Github::Actions::Remember.new(message).call
+        Ruboty::Github::Actions::Remember.new(message).call
       end
 
       def create_pull_request(message)
-        Ellen::Github::Actions::CreatePullRequest.new(message).call
+        Ruboty::Github::Actions::CreatePullRequest.new(message).call
       end
 
       def merge_pull_request(message)
-        Ellen::Github::Actions::MergePullRequest.new(message).call
+        Ruboty::Github::Actions::MergePullRequest.new(message).call
       end
     end
   end
