@@ -11,7 +11,7 @@ gem "ruboty-github"
 ```
 @ruboty close issue <repo>#<number>                       - Close an Issue
 @ruboty create issue "<title>" on <repo>[\n<description>] - Create a new Issue
-@ruboty merge pull request<repo>#<number>                 - Merge a Pull Request
+@ruboty merge <repo>#<number>                             - Merge a Pull Request
 @ruboty pull request "<title>" from <from> to <to>        - Create a new Pull Request
 @ruboty remember my github token <token>                  - Remember sender's GitHub access token
 ```

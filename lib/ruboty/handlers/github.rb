@@ -28,7 +28,7 @@ module Ruboty
       )
 
       on(
-        /merge pull request (?<repo>.+)#(?<number>\d+)\z/,
+        /merge (?<repo>.+)#(?<number>\d+)\z/,
         name: "merge_pull_request",
         description: "Merge pull request",
       )

@@ -1,3 +1,6 @@
+## 0.1.0
+* Change command: merge pull request -> merge
+
 ## 0.0.9
 * Rename: Ellen -> Ruboty
 
