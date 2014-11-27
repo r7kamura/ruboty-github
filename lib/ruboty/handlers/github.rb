@@ -47,6 +47,19 @@ module Ruboty
         description: "Create a branch",
       )
 
+      on(
+        /prepare sandbox (?<repo>.+)/,
+        name: 'prepare_sandbox',
+        description: 'prepare sandbox branch'
+      )
+
+      on(
+        /deploy sandbox (?<repo>.+)/,
+        name: 'deploy_sandbox',
+        description: 'deploy to sandbox'
+      )
+
+
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
       end
@@ -73,6 +86,14 @@ module Ruboty
 
       def create_branch(message)
         Ruboty::Github::Actions::CreateBranch.new(message).call
+      end
+
+      def prepare_sandbox(message)
+        Ruboty::Github::Actions::Deploy.new(message).prepare_sandbox
+      end
+
+      def deploy_sandbox(message)
+        Ruboty::Github::Actions::Deploy.new(message).deploy_sandbox
       end
     end
   end
