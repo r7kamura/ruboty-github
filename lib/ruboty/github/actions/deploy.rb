@@ -8,6 +8,12 @@ module Ruboty
           update_branch('heads/deployment/sandbox', 'master')
 
           message.reply 'sandbox branch is created'
+        rescue Octokit::Unauthorized
+          message.reply("Failed in authentication (401)")
+        rescue Octokit::NotFound
+          message.reply("Could not find that repository")
+        rescue => exception
+          message.reply("Failed by #{exception.class} #{exception}")
         end
 
         def deploy_sandbox
@@ -15,6 +21,12 @@ module Ruboty
           pr = pull_request('deployment/sandbox', 'sandbox', 'Deploy to sandbox', '')
 
           message.reply("Created #{pr.html_url}")
+        rescue Octokit::Unauthorized
+          message.reply("Failed in authentication (401)")
+        rescue Octokit::NotFound
+          message.reply("Could not find that repository")
+        rescue => exception
+          message.reply("Failed by #{exception.class} #{exception}")
         end
 
         private
