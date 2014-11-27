@@ -4,7 +4,7 @@ module Ruboty
       class Deploy < Base
         def prepare_sandbox
           return require_access_token unless has_access_token?
-          create_branch('heads/sandbox', 'master')
+          create_branch('heads/sandbox_master', 'master')
           update_branch('heads/deployment/sandbox', 'master')
 
           message.reply 'sandbox branch is created'
@@ -18,7 +18,7 @@ module Ruboty
 
         def deploy_sandbox
           return require_access_token unless has_access_token?
-          pr = pull_request('deployment/sandbox', 'sandbox', 'Deploy to sandbox', '')
+          pr = pull_request('deployment/sandbox', 'sandbox_master', 'Deploy to sandbox', '')
 
           message.reply("Created #{pr.html_url}")
         rescue Octokit::Unauthorized
