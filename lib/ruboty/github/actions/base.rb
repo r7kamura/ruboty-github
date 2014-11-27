@@ -33,7 +33,7 @@ module Ruboty
         end
 
         def access_token
-          @access_token ||= access_tokens[sender_name]
+          @access_token ||= (access_tokens[sender_name] || default_access_token)
         end
 
         def client
@@ -72,6 +72,10 @@ module Ruboty
           when ENV["GITHUB_HOST"]
             "https://#{ENV['GITHUB_HOST']}"
           end
+        end
+
+        def default_access_token
+          ENV["GITHUB_ACCESS_TOKEN"]
         end
       end
     end
