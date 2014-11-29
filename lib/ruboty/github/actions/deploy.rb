@@ -10,7 +10,7 @@ module Ruboty
           update_branch('heads/deployment/sandbox', 'master')
           pr = pull_request('deployment/sandbox',
                             'sandbox_master',
-                            "#{Time.now.strftime('%Y-%m-%d')} Deploy to sandbox by #{message.from}",
+                            "#{Time.now.strftime('%Y-%m-%d')} Deploy to sandbox by #{message.from_name}",
                             ENV['GITHUB_PR_DESCRIPTION'].gsub('\n',"\n") || '')
           message.reply("Created #{pr.html_url}")
         rescue Octokit::Unauthorized
