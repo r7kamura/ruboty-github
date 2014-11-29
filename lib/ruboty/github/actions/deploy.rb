@@ -15,7 +15,7 @@ module Ruboty
         rescue Octokit::NotFound
           message.reply("Could not find that repository")
         rescue => exception
-          message.reply("Failed by #{exception.class} #{exception}")
+          message.reply("Failed by #{exception.class} #{exception}\n#{exception.backtrace}")
         end
 
         private
