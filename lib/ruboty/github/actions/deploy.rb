@@ -2,24 +2,13 @@ module Ruboty
   module Github
     module Actions
       class Deploy < Base
-        def prepare_sandbox
+        def call
           return require_access_token unless has_access_token?
-          create_branch('heads/sandbox_master', 'master')
+
+          c = create_empty_commit('sandbox_master', 'Open PR')
+          create_branch('heads/sandbox_master', c.sha1)
           update_branch('heads/deployment/sandbox', 'master')
-
-          message.reply 'sandbox branch is created'
-        rescue Octokit::Unauthorized
-          message.reply("Failed in authentication (401)")
-        rescue Octokit::NotFound
-          message.reply("Could not find that repository")
-        rescue => exception
-          message.reply("Failed by #{exception.class} #{exception}")
-        end
-
-        def deploy_sandbox
-          return require_access_token unless has_access_token?
           pr = pull_request('deployment/sandbox', 'sandbox_master', 'Deploy to sandbox', '')
-
           message.reply("Created #{pr.html_url}")
         rescue Octokit::Unauthorized
           message.reply("Failed in authentication (401)")
@@ -34,12 +23,19 @@ module Ruboty
           client.create_pull_request(repository, base, head, title, description)
         end
 
-        def create_branch(name, branch)
-          client.create_ref(repository, name, sha1(branch))
+        def create_branch(name, sha1)
+          client.create_ref(repository, name, sha1)
         end
 
         def update_branch(name, branch)
           client.update_ref(repository, name, sha1(branch), true)
+        end
+
+        def create_empty_commit(branch, message)
+          current = client.branch(repository, branch)
+          client.create_commit(repository, message,
+                               current.commit.commit.tree.sha,
+                               current.commit.sha)
         end
 
         def sha1(branch)
