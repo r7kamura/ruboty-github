@@ -5,10 +5,13 @@ module Ruboty
         def call
           return require_access_token unless has_access_token?
 
-          c = create_empty_commit('sandbox_master', 'Open PR')
-          create_branch('heads/sandbox_master', c.sha1)
+          c = create_empty_commit('master', 'Open PR')
+          create_branch('heads/sandbox_master', c.sha)
           update_branch('heads/deployment/sandbox', 'master')
-          pr = pull_request('deployment/sandbox', 'sandbox_master', 'Deploy to sandbox', '')
+          pr = pull_request('deployment/sandbox',
+                            'sandbox_master',
+                            ENV['GITHUB_PR_TITLE'] || 'Deploy to sandbox',
+                            ENV['GITHUB_PR_DESCRIPTION'].gsub('\n',"\n") || '')
           message.reply("Created #{pr.html_url}")
         rescue Octokit::Unauthorized
           message.reply("Failed in authentication (401)")
