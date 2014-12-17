@@ -23,15 +23,11 @@ module Ruboty
         end
 
         def pull_request
-          client.create_pull_request(repository, base, head, title, description)
+          client.create_pull_request(repository, base, head, title, body)
         end
 
         def title
           message[:title]
-        end
-
-        def description
-          message[:description]
         end
 
         # e.g. alice/foo:test

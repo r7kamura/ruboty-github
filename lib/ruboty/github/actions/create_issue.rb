@@ -29,10 +29,6 @@ module Ruboty
         def title
           message[:title]
         end
-
-        def body
-          message[:description]
-        end
       end
     end
   end

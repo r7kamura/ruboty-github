@@ -16,6 +16,10 @@ module Ruboty
           message.robot.brain.data[NAMESPACE] ||= {}
         end
 
+        def body
+          message[:description] || ""
+        end
+
         def sender_name
           message.from_name
         end
