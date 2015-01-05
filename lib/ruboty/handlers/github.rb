@@ -1,7 +1,7 @@
 module Ruboty
   module Handlers
     class Github < Base
-      ISSUE_PATTERN = %r<(?:https?://[^/]+/)?(?<repo>.+)(?:#|/pull/|/issue/)(?<number>\d+) ?>
+      ISSUE_PATTERN = %r<(?:https?://[^/]+/)?(?<repo>.+)(?:#|/pull/|/issues/)(?<number>\d+) ?>
 
       env :GITHUB_HOST, "Pass GitHub Host if needed (e.g. github.example.com)", optional: true
 
