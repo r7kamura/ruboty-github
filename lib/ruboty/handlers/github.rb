@@ -1,6 +1,8 @@
 module Ruboty
   module Handlers
     class Github < Base
+      ISSUE_PATTERN = %r<(?:https?://[^/]+/)?(?<repo>.+)(?:#|/pull/|/issue/)(?<number>\d+) ?>
+
       env :GITHUB_HOST, "Pass GitHub Host if needed (e.g. github.example.com)", optional: true
 
       on(
@@ -16,7 +18,7 @@ module Ruboty
       )
 
       on(
-        /close issue (?<repo>.+)#(?<number>\d+)\z/,
+        /close issue #{ISSUE_PATTERN}\z/,
         name: "close_issue",
         description: "Close an issue",
       )
@@ -28,7 +30,7 @@ module Ruboty
       )
 
       on(
-        /merge (?<repo>.+)#(?<number>\d+)\z/,
+        /merge #{ISSUE_PATTERN}\z/,
         name: "merge_pull_request",
         description: "Merge pull request",
       )
