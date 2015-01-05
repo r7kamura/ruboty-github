@@ -1,3 +1,6 @@
+## 0.1.3
+- Fix bug that would not respond to issue URL
+
 ## 0.1.2
 - Allow merge & issue commands to take issue's URL
 - `close issue <target>` -> `close[ issue] <target>`
