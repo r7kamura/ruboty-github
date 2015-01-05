@@ -18,7 +18,7 @@ module Ruboty
       )
 
       on(
-        /close issue #{ISSUE_PATTERN}\z/,
+        /close(?: issue)? #{ISSUE_PATTERN}\z/,
         name: "close_issue",
         description: "Close an issue",
       )
