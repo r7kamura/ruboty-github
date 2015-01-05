@@ -1,3 +1,7 @@
+## 0.1.2
+- Allow merge & issue commands to take issue's URL
+- `close issue <target>` -> `close[ issue] <target>`
+
 ## 0.1.1
 - Pass empty string as issue body instead of nil
 
