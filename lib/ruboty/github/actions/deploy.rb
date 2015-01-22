@@ -6,11 +6,11 @@ module Ruboty
           return require_access_token unless has_access_token?
 
           c = create_empty_commit('master', 'Open PR')
-          create_branch('heads/sandbox_master', c.sha)
-          update_branch('heads/deployment/sandbox', 'master')
-          pr = pull_request('deployment/sandbox',
-                            'sandbox_master',
-                            "#{Time.now.strftime('%Y-%m-%d')} Deploy to sandbox by #{message.from_name}",
+          create_branch("heads/#{name}_master", c.sha)
+          update_branch("heads/deployment/#{name}", 'master')
+          pr = pull_request("deployment/#{name}",
+                            "#{name}_master",
+                            "#{Time.now.strftime('%Y-%m-%d')} Deploy to #{name} by #{message.from_name}",
                             ENV['GITHUB_PR_DESCRIPTION'].gsub('\n',"\n") || '')
           message.reply("Created #{pr.html_url}")
         rescue Octokit::Unauthorized
@@ -43,6 +43,11 @@ module Ruboty
 
         def sha1(branch)
           client.branch(repository, branch).commit.sha
+        end
+
+        # e.g. sandbox
+        def name
+          message[:name]
         end
 
         # e.g. alice/foo:test
