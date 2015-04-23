@@ -25,7 +25,8 @@ module Ruboty
 
         def new_master
           if branch
-            client.ref(repository, branch).object
+            # pull/xxx は配列が返ってくる
+            [ client.ref(repository, branch) ].flatten.first.object
           else
             create_empty_commit('master', 'Open PR')
           end
