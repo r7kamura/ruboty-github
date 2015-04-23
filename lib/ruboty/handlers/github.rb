@@ -54,7 +54,7 @@ module Ruboty
       )
 
       on(
-        %r{https?://github\.com/(?<repo>.*)/pull/(?<number>\d+)},
+        %r{.*https?://github\.com/(?<repo>.*)/pull/(?<number>\d+).*},
         name: "show_pull_request",
         description: "show pull request",
         all: true
