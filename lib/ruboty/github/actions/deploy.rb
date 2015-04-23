@@ -5,13 +5,13 @@ module Ruboty
         def call
           return require_access_token unless has_access_token?
 
-          c = create_empty_commit('master', 'Open PR')
+          c = new_master
           create_branch("heads/#{name}_master", c.sha)
           update_branch("heads/deployment/#{name}", 'master')
           pr = pull_request("deployment/#{name}",
                             "#{name}_master",
                             "#{Time.now.strftime('%Y-%m-%d')} Deploy to #{name} by #{message.from_name}",
-                            ENV['GITHUB_PR_DESCRIPTION'].gsub('\n',"\n") || '')
+                            ENV['GITHUB_PR_DESCRIPTION'].to_s.gsub('\n',"\n") || '')
           message.reply("Created #{pr.html_url}")
         rescue Octokit::Unauthorized
           message.reply("Failed in authentication (401)")
@@ -22,6 +22,15 @@ module Ruboty
         end
 
         private
+
+        def new_master
+          if branch
+            client.ref(repository, branch).object
+          else
+            create_empty_commit('master', 'Open PR')
+          end
+        end
+
         def pull_request(base, head, title, description)
           client.create_pull_request(repository, base, head, title, description)
         end
@@ -43,6 +52,10 @@ module Ruboty
 
         def sha1(branch)
           client.branch(repository, branch).commit.sha
+        end
+
+        def branch
+          message[:branch]
         end
 
         # e.g. sandbox
