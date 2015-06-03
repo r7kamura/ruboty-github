@@ -57,15 +57,15 @@ module Ruboty
         end
 
         def web_endpoint
-          "https://#{github_host}/" if github_host
+          "#{github_base_url}/" if github_base_url
         end
 
         def api_endpoint
-          "https://#{github_host}/api/v3" if github_host
+          "#{github_base_url}/api/v3" if github_base_url
         end
 
-        def github_host
-          ENV["GITHUB_HOST"]
+        def github_base_url
+          ENV["GITHUB_BASE_URL"]
         end
       end
     end
