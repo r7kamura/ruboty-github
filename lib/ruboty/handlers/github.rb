@@ -3,7 +3,7 @@ module Ruboty
     class Github < Base
       ISSUE_PATTERN = %r<(?:https?://[^/]+/)?(?<repo>.+)(?:#|/pull/|/issues/)(?<number>\d+) ?>
 
-      env :GITHUB_HOST, "Pass GitHub Host if needed (e.g. github.example.com)", optional: true
+      env :GITHUB_BASE_URL, "Pass GitHub URL if needed (e.g. https://github.example.com)", optional: true
 
       on(
         /create issue "(?<title>.+)" on (?<repo>.+)(?:\n(?<description>[\s\S]+))?\z/,
