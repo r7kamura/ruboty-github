@@ -1,3 +1,6 @@
+## 0.2.0
+- Change ENV from GITHUB_HOST to GITHUB_BASE_URL
+
 ## 0.1.3
 - Fix bug that would not respond to issue URL
 
