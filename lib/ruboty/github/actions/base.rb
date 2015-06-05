@@ -64,8 +64,14 @@ module Ruboty
           "#{github_base_url}/api/v3" if github_base_url
         end
 
+        # @note GITHUB_HOST will be deprecated on the next major version
         def github_base_url
-          ENV["GITHUB_BASE_URL"]
+          case
+          when ENV["GITHUB_BASE_URL"]
+            ENV["GITHUB_BASE_URL"]
+          when ENV["GITHUB_HOST"]
+            "https://#{ENV['GITHUB_HOST']}"
+          end
         end
       end
     end
