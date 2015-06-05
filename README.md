@@ -18,7 +18,7 @@ gem "ruboty-github"
 
 ## ENV
 ```
-GITHUB_HOST - Pass GitHub Host if needed (e.g. github.example.com)
+GITHUB_BASE_URL - Pass GitHub base URL if needed (e.g. https://github.example.com)
 ```
 
 ## Image
