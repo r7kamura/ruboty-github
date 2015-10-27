@@ -30,6 +30,12 @@ module Ruboty
       )
 
       on(
+        /deploy pull request "(?<title>.+)" from (?<from>.+) to (?<to>.+)(?:\n(?<description>[\s\S]+))?\z/,
+        name: "create_deploy_pull_request",
+        description: "Create a pull request to deploy",
+      )
+
+      on(
         /merge #{ISSUE_PATTERN}\z/,
         name: "merge_pull_request",
         description: "Merge pull request",
@@ -49,6 +55,10 @@ module Ruboty
 
       def create_pull_request(message)
         Ruboty::Github::Actions::CreatePullRequest.new(message).call
+      end
+
+      def create_deploy_pull_request(message)
+        Ruboty::Github::Actions::CreateDeployPullRequest.new(message).call
       end
 
       def merge_pull_request(message)
