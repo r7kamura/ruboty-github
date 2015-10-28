@@ -1,5 +1,6 @@
 # Ruboty::Github
 Manage GitHub via Ruboty.
+This gem adds `deploy pull request` command to original ruboty-github plugin.
 
 ## Install
 ```ruby
