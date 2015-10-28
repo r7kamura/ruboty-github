@@ -10,14 +10,14 @@ module Ruboty
         end
 
         def body
-           body = "## Pull Request to deloy\n\n"
+           body = "## Pull Requests to deloy\n\n"
            pull_requests_to_deploy(repository, to_branch, from_branch).each do |pr|
              body = body + [
                "-",
                "[##{pr[:number]}](#{pr[:html_url]}):",
                pr[:title],
                "by",
-               "@#{pr[:head][:user][:login]}\n",
+               "@#{pr[:user][:login]}\n",
              ].join(' ')
            end
            body
