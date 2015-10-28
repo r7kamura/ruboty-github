@@ -3,12 +3,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'ruboty/github/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ruboty-github"
+  spec.name          = "ruboty-qiita-github"
   spec.version       = Ruboty::Github::VERSION
-  spec.authors       = ["Ryo Nakamura"]
-  spec.email         = ["r7kamura@gmail.com"]
+  spec.authors       = ["Ryo Nakamura", "Seigo Uchida"]
+  spec.email         = ["r7kamura@gmail.com", "spesnova@gmail.com"]
   spec.summary       = "Manage GitHub via Ruboty."
-  spec.homepage      = "https://github.com/r7kamura/ruboty-github"
+  spec.homepage      = "https://github.com/increments/ruboty-qiita-github"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
