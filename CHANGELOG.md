@@ -1,3 +1,6 @@
+## 0.2.2
+- Fix a bug about pull request user
+
 ## 0.2.1
 - Add `deploy pull request` command
 
