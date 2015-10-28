@@ -13,6 +13,7 @@ gem "ruboty-github"
 @ruboty create issue "<title>" on <repo>[\n<description>] - Create a new Issue
 @ruboty merge <URL>                                       - Merge a Pull Request
 @ruboty pull request "<title>" from <from> to <to>        - Create a new Pull Request
+@ruboty deploy pull request "<title>" from <from> to <to> - Create a new Pull Request for Deploy
 @ruboty remember my github token <token>                  - Remember sender's GitHub access token
 ```
 
