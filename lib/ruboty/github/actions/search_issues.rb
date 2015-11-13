@@ -17,7 +17,15 @@ module Ruboty
         end
 
         def search_summary
-          issues.map { |issue| issue_description(issue) }.join("\n")
+          if issues.empty?
+            empty_summary
+          else
+            issues.map { |issue| issue_description(issue) }.join("\n")
+          end
+        end
+
+        def empty_summary
+          "Issue not found"
         end
 
         def issue_description(issue)
