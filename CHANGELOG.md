@@ -1,3 +1,6 @@
+## 0.2.1
+- Add `search issues <query>` command
+
 ## 0.2.0
 - Change ENV from GITHUB_HOST to GITHUB_BASE_URL
 
