@@ -35,6 +35,12 @@ module Ruboty
         description: "Merge pull request",
       )
 
+      on(
+        /search issues (?<query>.+)/,
+        name: "search_issues",
+        description: "Search issues",
+      )
+
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
       end
@@ -53,6 +59,10 @@ module Ruboty
 
       def merge_pull_request(message)
         Ruboty::Github::Actions::MergePullRequest.new(message).call
+      end
+
+      def search_issues(message)
+        Ruboty::Github::Actions::SearchIssues.new(message).call
       end
     end
   end
