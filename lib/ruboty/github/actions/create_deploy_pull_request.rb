@@ -10,7 +10,7 @@ module Ruboty
         end
 
         def body
-           body = "## Pull Requests to deloy\n\n"
+           body = "## Pull Requests to deploy\n\n"
            pull_requests_to_deploy(repository, to_branch, from_branch).each do |pr|
              body = body + [
                "-",
