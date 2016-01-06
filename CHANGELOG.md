@@ -1,3 +1,6 @@
+## 0.2.3
+- Fix typo
+
 ## 0.2.2
 - Fix a bug about pull request user
 
