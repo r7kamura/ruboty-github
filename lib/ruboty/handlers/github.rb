@@ -60,6 +60,12 @@ module Ruboty
         all: true
       )
 
+      on(
+        /show undeployed (?<repo>.*)/,
+        name: 'show_undeployed_pull_requests',
+        description: 'show undeployed pull requests'
+      )
+
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
       end
@@ -94,6 +100,10 @@ module Ruboty
 
       def show_pull_request(message)
         Ruboty::Github::Actions::ShowPullRequest.new(message).call
+      end
+
+      def show_undeployed_pull_requests(message)
+        Ruboty::Github::Actions::ShowUndeployedPullRequests.new(message).call
       end
     end
   end
