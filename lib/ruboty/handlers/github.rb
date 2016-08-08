@@ -54,6 +54,12 @@ module Ruboty
       )
 
       on(
+        /release (?<name>\S+) (?<repo>\S+)( (?<branch>\S+))?/,
+        name: 'prepare_release',
+        description: 'prepare release branch'
+      )
+
+      on(
         %r{.*https?://github\.com/(?<repo>.*)/pull/(?<number>\d+).*},
         name: "show_pull_request",
         description: "show pull request",
@@ -95,7 +101,11 @@ module Ruboty
       end
 
       def prepare_deploy(message)
-        Ruboty::Github::Actions::Deploy.new(message).call
+        Ruboty::Github::Actions::Deploy.new(message, 'deployment').call
+      end
+
+      def prepare_release(message)
+        Ruboty::Github::Actions::Deploy.new(message, 'release').call
       end
 
       def show_pull_request(message)

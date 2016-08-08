@@ -2,13 +2,19 @@ module Ruboty
   module Github
     module Actions
       class Deploy < Base
+        def initialize(message, prefix)
+          super(message)
+
+          @prefix = prefix
+        end
+
         def call
           return require_access_token unless has_access_token?
 
           c = new_master
           create_branch("heads/#{name}_master", c.sha)
-          update_branch("heads/deployment/#{name}", 'master')
-          pr = pull_request("deployment/#{name}",
+          update_branch("heads/#{prefix}/#{name}", 'master')
+          pr = pull_request("#{prefix}/#{name}",
                             "#{name}_master",
                             "#{Time.now.strftime('%Y-%m-%d')} Deploy to #{name} by #{message.from_name}",
                             ENV['GITHUB_PR_DESCRIPTION'].to_s.gsub('\n',"\n") || '')
@@ -22,6 +28,8 @@ module Ruboty
         end
 
         private
+
+        attr_reader :prefix
 
         def new_master
           if branch
