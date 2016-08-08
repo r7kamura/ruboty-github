@@ -17,7 +17,7 @@ module Ruboty
           pr = pull_request("#{prefix}/#{name}",
                             "#{name}_master",
                             "#{Time.now.strftime('%Y-%m-%d')} Deploy to #{name} by #{message.from_name}",
-                            ENV['GITHUB_PR_DESCRIPTION'].to_s.gsub('\n',"\n") || '')
+                            description)
           message.reply("Created #{pr.html_url}")
         rescue Octokit::Unauthorized
           message.reply("Failed in authentication (401)")
@@ -90,6 +90,14 @@ module Ruboty
         # e.g. bob/foo
         def repository
           message[:repo]
+        end
+
+        def format(str)
+          str.to_s.gsub('\n',"\n")
+        end
+
+        def description
+          format(ENV["GITHUB_PR_DESCRIPTION_#{prefix.upcase}"] || ENV['GITHUB_PR_DESCRIPTION'] || '')
         end
       end
     end
