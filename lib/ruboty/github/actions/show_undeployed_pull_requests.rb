@@ -39,11 +39,7 @@ module Ruboty
         end
 
         def latest_deploy
-          tags[-1][:commit][:sha]
-        end
-
-        def tags
-          @tags ||= client.tags(repo).select{|tag| tag[:name] =~ /APP.*production/ }.sort_by { |tag| tag[:name] }
+          'release/main'
         end
 
         def repo
