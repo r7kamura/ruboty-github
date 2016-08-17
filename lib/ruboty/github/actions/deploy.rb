@@ -13,7 +13,7 @@ module Ruboty
 
           c = new_master
           create_branch("heads/#{name}_master", c.sha)
-          update_branch("heads/#{prefix}/#{name}", 'master')
+          update_branch("heads/#{prefix}/#{name}", 'master') if prefix == 'deployment'
           pr = pull_request("#{prefix}/#{name}",
                             "#{name}_master",
                             "#{Time.now.strftime('%Y-%m-%d')} Deploy to #{name} by #{message.from_name}",
