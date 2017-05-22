@@ -13,7 +13,7 @@ module Ruboty
 
           c = new_master
           create_branch("heads/#{name}_master", c.sha)
-          update_branch("heads/#{prefix}/#{name}", 'master') if prefix == 'deployment'
+          update_branch_with_empty_commit("heads/#{prefix}/#{name}", 'master') if prefix == 'deployment'
           pr = pull_request("#{prefix}/#{name}",
                             "#{name}_master",
                             "#{Time.now.strftime('%Y-%m-%d')} Deploy to #{name} by #{message.from_name}",
@@ -48,8 +48,11 @@ module Ruboty
           client.create_ref(repository, name, sha1)
         end
 
-        def update_branch(name, branch)
-          client.update_ref(repository, name, sha1(branch), true)
+        def update_branch_with_empty_commit(name, branch)
+          # We add an empty commit so that the webhook push event caused by update_ref has `forced: true` status
+          # even if this action is called twice without merging a deployment PR.
+          new_commit = create_empty_commit(branch, 'Deployment')
+          client.update_ref(repository, name, new_commit.sha, true)
         end
 
         def create_empty_commit(branch, message)
@@ -57,10 +60,6 @@ module Ruboty
           client.create_commit(repository, message,
                                current.commit.commit.tree.sha,
                                current.commit.sha)
-        end
-
-        def sha1(branch)
-          client.branch(repository, branch).commit.sha
         end
 
         def branch
