@@ -23,8 +23,12 @@ module Ruboty
         private
 
         def show
-          merge_pull_requests.each do |text|
-            message.reply text.gsub(/\AMerge pull request (\#\d+).*\n\n/) { "#{$1} " }
+          if merge_pull_requests.empty?
+            message.reply 'No pull requests have been merged since the last deployment.'
+          else
+            merge_pull_requests.each do |text|
+              message.reply text.gsub(/\AMerge pull request (\#\d+).*\n\n/) { "#{$1} " }
+            end
           end
         end
 
