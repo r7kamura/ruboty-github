@@ -19,6 +19,9 @@ module Ruboty
                             "#{Time.now.strftime('%Y-%m-%d')} Deploy to #{name} by #{message.from_name}",
                             description)
           message.reply("Created #{pr.html_url}")
+        rescue Octokit::UnprocessableEntity => e
+          raise e unless /Reference already exists/.match?(e.message)
+          message.reply("Oops! A branch named '#{name}_master' already exists.")
         rescue Octokit::Unauthorized
           message.reply("Failed in authentication (401)")
         rescue Octokit::NotFound
