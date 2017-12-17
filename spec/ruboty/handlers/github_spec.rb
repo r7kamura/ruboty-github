@@ -160,4 +160,79 @@ describe Ruboty::Handlers::Github do
       access_tokens[sender].should == github_access_token
     end
   end
+
+  describe "#create_branch" do
+    let(:from_branch) do
+      "master"
+    end
+
+    let(:to_branch) do
+      "hotfix"
+    end
+
+    let(:sha) do
+      "8d265b39db79a2871427563ca51c28ca197ce0ff"
+    end
+
+    before do
+      stub_request(:get, "https://api.github.com/repos/#{user}/#{repository}/branches/#{from_branch}").
+        with(
+          headers: {
+            Authorization: "token #{github_access_token}"
+          },
+        ).
+        to_return(
+          body: {
+            commit: {
+              sha: sha,
+            },
+          }.to_json,
+          headers: {
+            "Content-Type" => "application/json",
+          },
+        )
+
+      stub_request(:post, "https://api.github.com/repos/#{user}/#{repository}/git/refs").
+        with(
+          body: {
+            ref: "refs/heads/#{to_branch}",
+            sha: sha,
+          }.to_json,
+          headers: {
+            Authorization: "token #{github_access_token}"
+          },
+        )
+
+      stub_request(:get, "https://api.github.com/repos/#{user}/#{repository}/branches/#{to_branch}").
+        with(
+          headers: {
+            Authorization: "token #{github_access_token}"
+          },
+        ).
+        to_return(
+          body: {
+            _links: {
+              html: "https://github.com/#{user}/#{repository}/tree/#{to_branch}",
+            },
+          }.to_json,
+          headers: {
+            "Content-Type" => "application/json",
+          }
+        )
+    end
+
+    let(:body) do
+      %<ruboty create branch #{to_branch} from #{user}/#{repository}:#{from_branch}>
+    end
+
+    include_examples "requires access token without access token"
+
+    context "with access token" do
+      it "creates a new branch" do
+        Ruboty::Message.any_instance.should_receive(:reply).with("Created https://github.com/#{user}/#{repository}/tree/#{to_branch}")
+        call
+        a_request(:any, //).should have_been_made.times(3)
+      end
+    end
+  end
 end
