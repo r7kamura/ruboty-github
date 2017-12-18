@@ -41,6 +41,12 @@ module Ruboty
         description: "Search issues",
       )
 
+      on(
+        /create branch (?<to_branch>.+) from (?<from>.+)\z/,
+        name: "create_branch",
+        description: "Create a branch",
+      )
+
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
       end
@@ -63,6 +69,10 @@ module Ruboty
 
       def search_issues(message)
         Ruboty::Github::Actions::SearchIssues.new(message).call
+      end
+
+      def create_branch(message)
+        Ruboty::Github::Actions::CreateBranch.new(message).call
       end
     end
   end

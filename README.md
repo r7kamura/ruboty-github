@@ -10,6 +10,7 @@ gem "ruboty-github"
 ## Usage
 ```
 @ruboty close <URL>                                       - Close an Issue
+@ruboty create branch <to_branch> from <from>             - Create a new Branch
 @ruboty create issue "<title>" on <repo>[\n<description>] - Create a new Issue
 @ruboty search issues <query>                             - Search issues
 @ruboty merge <URL>                                       - Merge a Pull Request
