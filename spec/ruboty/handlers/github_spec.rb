@@ -49,7 +49,7 @@ describe Ruboty::Handlers::Github do
       end
 
       it "requires access token" do
-        Ruboty.logger.should_receive(:info).with("I don't know your github access token")
+        Ruboty::Message.any_instance.should_receive(:reply).with("I don't know your github access token")
         call
         a_request(:any, //).should_not have_been_made
       end
@@ -137,7 +137,7 @@ describe Ruboty::Handlers::Github do
 
     context "with closed issue" do
       it "replies so" do
-        Ruboty.logger.should_receive(:info).with("Closed #{html_url}")
+        Ruboty::Message.any_instance.should_receive(:reply).with("Closed #{html_url}")
         call
       end
     end
@@ -155,7 +155,7 @@ describe Ruboty::Handlers::Github do
     end
 
     it "remembers sender's access token in its brain" do
-      Ruboty.logger.should_receive(:info).with("Remembered #{sender}'s github access token")
+      Ruboty::Message.any_instance.should_receive(:reply).with("Remembered #{sender}'s github access token")
       call
       access_tokens[sender].should == github_access_token
     end
