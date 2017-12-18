@@ -1,3 +1,6 @@
+## 0.3.0
+- Add `create branch <to_branch> from <from>` command
+
 ## 0.2.1
 - Add `search issues <query>` command
 
