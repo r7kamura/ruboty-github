@@ -27,7 +27,9 @@ module Ruboty
             message.reply 'No pull requests have been merged since the last deployment.'
           else
             merge_pull_requests.each do |text|
-              message.reply text.gsub(/\AMerge pull request (\#\d+).*\n\n/) { "#{$1} " }
+              m = text.gsub(/\AMerge pull request (\#\d+).*\n\n/) { "#{$1} " }
+              m.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+              message.reply m
             end
           end
         end
