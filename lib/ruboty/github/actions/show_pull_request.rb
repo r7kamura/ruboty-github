@@ -21,7 +21,7 @@ module Ruboty
         private
 
         def show
-          message.reply "#{repo}: [#{state}]#{title}"
+          message.reply ":#{name}: [#{state}]#{title}"
         end
 
         def title
@@ -38,6 +38,10 @@ module Ruboty
 
         def request
           @request ||= client.pull_request(repo, number)
+        end
+
+        def name
+          File.basename(repo)
         end
 
         def repo
