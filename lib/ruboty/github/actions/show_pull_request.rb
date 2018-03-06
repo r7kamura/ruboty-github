@@ -21,7 +21,7 @@ module Ruboty
         private
 
         def show
-          message.reply "[#{state}]#{title}"
+          message.reply "#{repo}: [#{state}]#{title}"
         end
 
         def title
