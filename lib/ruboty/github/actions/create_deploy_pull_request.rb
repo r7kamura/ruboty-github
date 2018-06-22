@@ -10,28 +10,22 @@ module Ruboty
         end
 
         def body
-           body = "## Pull Requests to deploy\n\n"
-           pull_requests_to_deploy(repository, to_branch, from_branch).each do |pr|
-             body = body + [
-               "-",
-               "[##{pr[:number]}](#{pr[:html_url]}):",
-               pr[:title],
-               "by",
-               "@#{pr[:user][:login]}\n",
-             ].join(' ')
+           lines = included_pull_requests.map do |pr|
+             "- [##{pr[:number]}](#{pr[:html_url]}): #{pr[:title]} by @#{pr[:user][:login]}"
            end
-           body
+           lines.unshift('## Pull Requests to deploy', '')
+           lines.join("\n")
         end
 
-        def pull_requests_to_deploy(repository, to_branch, from_branch)
-          numbers = compare(repository, to_branch, from_branch).commits.map do |commit|
+        def included_pull_requests
+          numbers = comparison.commits.map do |commit|
             /^Merge pull request #(\d+) from/ =~ commit[:commit][:message]
             $1
           end
-          numbers.compact.map { |n| client.pull_request(repository, n.to_i) }
+          numbers.compact.map { |number| client.pull_request(repository, number.to_i) }
         end
 
-        def compare(repository, to_branch, from_branch)
+        def comparison
           start = client.branch(repository, to_branch)[:commit][:sha]
           endd  = client.branch(repository, from_branch)[:commit][:sha]
           client.compare(repository, start, endd)
