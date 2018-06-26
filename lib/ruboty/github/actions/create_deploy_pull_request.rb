@@ -4,6 +4,14 @@ module Ruboty
       class CreateDeployPullRequest < CreatePullRequest
         private
 
+        def create
+          super
+
+          if database_schema_changed?
+            message.reply("@here :warning: This deployment includes some database migrations")
+          end
+        end
+
         # e.g. master
         def to_branch
           to.split(":").last
@@ -25,10 +33,16 @@ module Ruboty
           numbers.compact.map { |number| client.pull_request(repository, number.to_i) }
         end
 
+        def database_schema_changed?
+          comparison.files.any? { |file| file.filename == 'db/schema.rb' }
+        end
+
         def comparison
-          start = client.branch(repository, to_branch)[:commit][:sha]
-          endd  = client.branch(repository, from_branch)[:commit][:sha]
-          client.compare(repository, start, endd)
+          @comparison ||= begin
+            start = client.branch(repository, to_branch)[:commit][:sha]
+            endd  = client.branch(repository, from_branch)[:commit][:sha]
+            client.compare(repository, start, endd)
+          end
         end
       end
     end

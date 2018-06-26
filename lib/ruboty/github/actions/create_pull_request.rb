@@ -4,7 +4,7 @@ module Ruboty
       class CreatePullRequest < Base
         def call
           if has_access_token?
-            create
+            create_with_error_handling
           else
             require_access_token
           end
@@ -12,14 +12,18 @@ module Ruboty
 
         private
 
-        def create
-          message.reply("Created #{pull_request.html_url}")
+        def create_with_error_handling
+          create
         rescue Octokit::Unauthorized
           message.reply("Failed in authentication (401)")
         rescue Octokit::NotFound
           message.reply("Could not find that repository")
         rescue => exception
           message.reply("Failed by #{exception.class} #{exception}")
+        end
+
+        def create
+          message.reply("Created #{pull_request.html_url}")
         end
 
         def pull_request
