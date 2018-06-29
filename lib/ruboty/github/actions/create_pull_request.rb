@@ -8,6 +8,9 @@ module Ruboty
           else
             require_access_token
           end
+          # Action handlers should return truthy value to tell ruboty that the given message has been handled.
+          # Otherwise, ruboty tries to execute other handlers.
+          true
         end
 
         private
