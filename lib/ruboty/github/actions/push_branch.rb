@@ -20,7 +20,7 @@ module Ruboty
 
         def push
           update_branch
-          message.reply("Updated #{ref} with #{commit_link}")
+          message.reply(update_message)
         rescue Octokit::Unauthorized
           message.reply("Failed in authentication (401)")
         rescue Octokit::NotFound
@@ -29,10 +29,18 @@ module Ruboty
           message.reply("Failed by #{exception.class} #{exception}")
         end
 
-        def commit_link
+        def update_message
           # branch._links.html ではブランチ名のtree viewになり、ブランチが更新されるとあとから追えない
           # このためsha1を使ったリンクを生成する
-          "https://github.com/#{repository}/commits/#{sha1}"
+          master_sha1 = client.branch(repository, 'master').commit.sha.slice(0, 8)
+          current_sha1 = client.branch(repository, ref).commit.sha.slice(0, 8)
+          updated_sha1 = sha1.slice(0, 8)
+
+          <<~LINKS
+            Updated #{ref} to https://github.com/#{repository}/commits/#{updated_sha1}
+              diff from previous: https://github.com/#{repository}/compare/#{current_sha1}..#{updated_sha1}
+              diff from master: https://github.com/#{repository}/compare/#{master_sha1}..#{updated_sha1}
+          LINKS
         end
 
         def update_branch
