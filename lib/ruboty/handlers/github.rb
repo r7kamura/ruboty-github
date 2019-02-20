@@ -48,6 +48,18 @@ module Ruboty
       )
 
       on(
+        /push branch (?<repo>\S+) (?<name>.+) from (?<from>.+)/,
+        name: "push_branch",
+        description: "Push branch"
+      )
+
+      on(
+        /push force branch (?<repo>\S+) (?<name>.+) from (?<from>.+)/,
+        name: "push_force_branch",
+        description: "Push force branch"
+      )
+
+      on(
         /prepare (?<name>\S+) (?<repo>\S+)( (?<branch>\S+))?/,
         name: 'prepare_deploy',
         description: 'prepare deploy branch'
@@ -98,6 +110,14 @@ module Ruboty
 
       def create_branch(message)
         Ruboty::Github::Actions::CreateBranch.new(message).call
+      end
+
+      def push_branch(message)
+        Ruboty::Github::Actions::PushBranch.new(message).call
+      end
+
+      def push_force_branch(message)
+        Ruboty::Github::Actions::PushBranch.new(message, force: true).call
       end
 
       def prepare_deploy(message)
