@@ -19,7 +19,6 @@ module Ruboty
         private
 
         def push
-          update_branch
           message.reply(update_message)
         rescue Octokit::Unauthorized
           message.reply("Failed in authentication (401)")
@@ -34,6 +33,8 @@ module Ruboty
           # このためsha1を使ったリンクを生成する
           master_sha1 = client.branch(repository, 'master').commit.sha.slice(0, 8)
           current_sha1 = client.branch(repository, ref).commit.sha.slice(0, 8)
+
+          update_branch
           updated_sha1 = sha1.slice(0, 8)
 
           <<~LINKS
