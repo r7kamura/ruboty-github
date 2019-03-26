@@ -135,7 +135,7 @@ module Ruboty
       end
 
       def prepare_release_with_env(message)
-        Ruboty::Github::Actions::Release.new(message, 'release', 'stage').call
+        Ruboty::Github::Actions::Release.new(message, 'release', 'release').call
       end
 
       def show_pull_request(message)
