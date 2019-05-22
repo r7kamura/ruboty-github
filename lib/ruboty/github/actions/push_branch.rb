@@ -40,7 +40,7 @@ module Ruboty
           <<~LINKS
             Updated #{ref} to https://github.com/#{repository}/commits/#{updated_sha1}
               diff from previous: https://github.com/#{repository}/compare/#{current_sha1}..#{updated_sha1}
-              diff from master: https://github.com/#{repository}/compare/#{master_sha1}..#{updated_sha1}
+              diff from master: https://github.com/#{repository}/compare/#{master_sha1}...#{updated_sha1}
           LINKS
         end
 
