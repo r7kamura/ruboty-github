@@ -37,11 +37,12 @@ module Ruboty
           update_branch
           updated_sha1 = sha1.slice(0, 8)
 
-          <<~LINKS
-            Updated #{ref} to https://github.com/#{repository}/commits/#{updated_sha1}
-              diff from previous: https://github.com/#{repository}/compare/#{current_sha1}..#{updated_sha1}
-              diff from master: https://github.com/#{repository}/compare/#{master_sha1}...#{updated_sha1}
-          LINKS
+          messages = ["Updated #{ref} to https://github.com/#{repository}/commits/#{updated_sha1}"]
+          messages << "  diff from previous: https://github.com/#{repository}/compare/#{current_sha1}...#{updated_sha1}"
+          if master_sha1 != updated_sha1
+            messages << "  diff from master: https://github.com/#{repository}/compare/#{master_sha1}...#{updated_sha1}"
+          end
+          messages.join("\n")
         end
 
         def update_branch
