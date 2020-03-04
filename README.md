@@ -22,6 +22,3 @@ gem "ruboty-github"
 ```
 GITHUB_BASE_URL - Pass GitHub base URL if needed (e.g. https://github.example.com)
 ```
-
-## Image
-![](https://raw.githubusercontent.com/r7kamura/ruboty-github/master/images/screenshot.png)
