@@ -235,4 +235,50 @@ describe Ruboty::Handlers::Github do
       end
     end
   end
+
+  describe "#create_release" do
+    before do
+      stub_request(:post, "https://api.github.com/repos/#{user}/#{repository}/releases").
+        with(
+          body: {
+            name: version,
+            tag_name: version,
+          }.to_json,
+          headers: {
+            Authorization: "token #{github_access_token}",
+          },
+        ).
+        to_return(
+          status: 200,
+          body: {
+            html_url: html_url,
+          }.to_json,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        )
+    end
+
+    let(:html_url) do
+      "https://github.com/#{user}/#{repository}/releases/#{version}"
+    end
+
+    let(:version) do
+      "1.2.3"
+    end
+
+    let(:body) do
+      %<ruboty create release #{user}/#{repository} #{version}>
+    end
+
+    include_examples "requires access token without access token"
+
+    context "with access token" do
+      it "creates a new release with given versin name on given repository" do
+        Ruboty::Message.any_instance.should_receive(:reply).with("Created #{html_url}")
+        call
+        a_request(:any, //).should have_been_made
+      end
+    end
+  end
 end

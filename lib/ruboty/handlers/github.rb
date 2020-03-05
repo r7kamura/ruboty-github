@@ -47,6 +47,12 @@ module Ruboty
         description: "Create a branch",
       )
 
+      on(
+        /create release (?<repo>.+) (?<version>(\d+\.)?(\d+\.)?(\*|\d+)$)/,
+        name: "create_release",
+        description: "Create a release",
+      )
+
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
       end
@@ -73,6 +79,10 @@ module Ruboty
 
       def create_branch(message)
         Ruboty::Github::Actions::CreateBranch.new(message).call
+      end
+
+      def create_release(message)
+        Ruboty::Github::Actions::CreateRelease.new(message).call
       end
     end
   end
