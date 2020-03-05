@@ -16,6 +16,7 @@ gem "ruboty-github"
 @ruboty merge <URL>                                       - Merge a Pull Request
 @ruboty pull request "<title>" from <from> to <to>        - Create a new Pull Request
 @ruboty remember my github token <token>                  - Remember sender's GitHub access token
+@ruboty create release <repo> <release_name>              - Create a new Release
 ```
 
 ## ENV
