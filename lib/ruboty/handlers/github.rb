@@ -4,6 +4,7 @@ module Ruboty
       ISSUE_PATTERN = %r<(?:https?://[^/]+/)?(?<repo>.+)(?:#|/pull/|/issues/)(?<number>\d+) ?>
 
       env :GITHUB_BASE_URL, "Pass GitHub URL if needed (e.g. https://github.example.com)", optional: true
+      env :RELEASE_NAME_PREFIX, "Pass Github release name prefix if needed (e.g. v)", optional: true
 
       on(
         /create issue "(?<title>.+)" on (?<repo>.+)(?:\n(?<description>[\s\S]+))?\z/,
@@ -48,7 +49,7 @@ module Ruboty
       )
 
       on(
-        /create release (?<repo>.+) (?<version>(\d+\.)?(\d+\.)?(\*|\d+)$)/,
+        /create release (?<repo>.+) (?<version>.+)/,
         name: "create_release",
         description: "Create a release",
       )

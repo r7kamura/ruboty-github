@@ -13,7 +13,7 @@ module Ruboty
         private
 
         def create
-          message.reply("Created #{create_release.html_url}")
+          message.reply("#{create_release}")
         rescue Octokit::Unauthorized
           message.reply("Failed in authentication (401)")
         rescue Octokit::NotFound
@@ -23,17 +23,34 @@ module Ruboty
         end
 
         def create_release
-          @create_release ||= client.create_release(repository, version, options)
-        end
-
-        def version
-          message[:version]
+          if valid_release_name?
+            @response ||= client.create_release(repository, version, options)
+            "Created #{@response.html_url}"
+          else
+            "Invalid release name was passed"
+          end
         end
 
         def options
           {
             name: version,
           }
+        end
+
+        def valid_release_name?
+          release_name_regexp.match?(version)
+        end
+
+        def release_name_regexp
+          /#{release_name_prefix}(\d+\.)?(\d+\.)?(\d+)$/
+        end
+
+        def release_name_prefix
+          @release_name_prefix ||= ENV["RELEASE_NAME_PREFIX"] || ""
+        end
+
+        def version
+          @version ||= message[:version]
         end
       end
     end

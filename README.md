@@ -22,4 +22,5 @@ gem "ruboty-github"
 ## ENV
 ```
 GITHUB_BASE_URL - Pass GitHub base URL if needed (e.g. https://github.example.com)
+RELEASE_NAME_PREFIX - Pass Github release name prefix if needed (e.g. v)
 ```

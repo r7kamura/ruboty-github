@@ -280,5 +280,22 @@ describe Ruboty::Handlers::Github do
         a_request(:any, //).should have_been_made
       end
     end
+
+    context "with valid release name prefix" do
+      before do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with('RELEASE_NAME_PREFIX').and_return('v')
+      end
+
+      let!(:version) do
+        "v1.2.3"
+      end
+
+      it "creates a new release with given versin name on given repository" do
+        Ruboty::Message.any_instance.should_receive(:reply).with("Created #{html_url}")
+        call
+        a_request(:any, //).should have_been_made
+      end
+    end
   end
 end
