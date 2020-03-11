@@ -13,13 +13,21 @@ module Ruboty
         private
 
         def get
-          message.reply("#{repository}:#{latest_release.tag_name}")
+          message.reply("#{text}")
         rescue Octokit::Unauthorized
           message.reply("Failed in authentication (401)")
         rescue Octokit::NotFound
           message.reply("Could not find that repository")
         rescue => exception
           message.reply("Failed by #{exception.class} #{exception}")
+        end
+
+        def text
+          [
+            '```',
+            latest_release.tag_name,
+            '```',
+          ]
         end
 
         def latest_release
