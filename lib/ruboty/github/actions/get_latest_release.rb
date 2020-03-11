@@ -27,7 +27,7 @@ module Ruboty
             '```',
             latest_release.tag_name,
             '```',
-          ]
+          ].join("\n")
         end
 
         def latest_release
