@@ -41,6 +41,26 @@ module Ruboty
         end
 
         def repository
+          [
+            organization_name,
+            repository_name,
+          ].join('/')
+        end
+
+        def repository_name
+          repo.split('/').last
+        end
+
+        def organization_name
+          case
+          when repo.split('/').length > 1
+            repo.split('/').first
+          when ENV["GITHUB_ORGANIZATION"]
+            ENV["GITHUB_ORGANIZATION"]
+          end
+        end
+
+        def repo
           message[:repo]
         end
 
