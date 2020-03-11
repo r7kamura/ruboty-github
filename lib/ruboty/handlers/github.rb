@@ -54,6 +54,18 @@ module Ruboty
         description: "Create a release",
       )
 
+      on(
+        /get releases (?<repo>.+)/,
+        name: "get_releases",
+        description: "Get releases",
+      )
+
+      on(
+        /get latest release (?<repo>.+)/,
+        name: "get_latest_release",
+        description: "Get latest release",
+      )
+
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
       end
@@ -84,6 +96,14 @@ module Ruboty
 
       def create_release(message)
         Ruboty::Github::Actions::CreateRelease.new(message).call
+      end
+
+      def get_releases(message)
+        Ruboty::Github::Actions::GetReleases.new(message).call
+      end
+
+      def get_latest_release(message)
+        Ruboty::Github::Actions::GetLatestRelease.new(message).call
       end
     end
   end
