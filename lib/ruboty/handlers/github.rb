@@ -72,6 +72,12 @@ module Ruboty
         description: "Get commit diff",
       )
 
+      on(
+        /get changelog (?<repo>.+)/,
+        name: "get_changelog",
+        description: "Get changelog"
+      )
+
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
       end
@@ -114,6 +120,10 @@ module Ruboty
 
       def get_commit_diff(message)
         Ruboty::Github::Actions::GetCommitDiff.new(message).call
+      end
+
+      def get_changelog(message)
+        Ruboty::Github::Actions::GetChangelog.new(message).call
       end
     end
   end
