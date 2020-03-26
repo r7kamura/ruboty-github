@@ -43,7 +43,7 @@ module Ruboty
             else
               nil
             end
-          end.compact.join("\n")
+          end.compact.reverse.join("\n")
         end
 
         def pull_request_title(number)
