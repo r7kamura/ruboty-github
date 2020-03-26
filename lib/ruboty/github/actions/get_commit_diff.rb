@@ -32,10 +32,7 @@ module Ruboty
 
         def commit_diff_messages
           commit_diffs.commits.map do |elm|
-            {
-              message: elm.commit.message,
-              committer: elm.commit.committer.name,
-            }
+            "#{elm.commit.message} by #{elm.commit.committer.name}"
           end.reverse.join("\n")
         end
 
