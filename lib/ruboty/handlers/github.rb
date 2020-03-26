@@ -66,6 +66,12 @@ module Ruboty
         description: "Get latest release",
       )
 
+      on(
+        /get commit diff (?<repo>.+) (?<base>.+)\.\.(?<head>.+)/,
+        name: "get_commit_diff",
+        description: "Get commit diff",
+      )
+
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
       end
@@ -104,6 +110,10 @@ module Ruboty
 
       def get_latest_release(message)
         Ruboty::Github::Actions::GetLatestRelease.new(message).call
+      end
+
+      def get_commit_diff(message)
+        Ruboty::Github::Actions::GetCommitDiff.new(message).call
       end
     end
   end
