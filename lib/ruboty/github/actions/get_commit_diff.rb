@@ -36,7 +36,7 @@ module Ruboty
               message: elm.commit.message,
               committer: elm.commit.committer.name,
             }
-          end.join("\n")
+          end.reverse.join("\n")
         end
 
         def commit_diffs
