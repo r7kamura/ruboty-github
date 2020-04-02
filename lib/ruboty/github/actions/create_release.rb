@@ -38,6 +38,40 @@ module Ruboty
           }
         end
 
+        def version
+          [
+            release_name_prefix,
+            incremented_version,
+          ].join
+        end
+
+        def incremented_version
+          [
+            latest_version.segments[0],
+            latest_version.segments[1],
+            latest_version.segments[2] + 1,
+          ].join('.')
+        end
+
+        def latest_version
+          Gem::Version.new(
+            latest_release_tag_name.slice(
+              Range.new(
+                release_name_prefix_length,
+                -1,
+              )
+            )
+          )
+        end
+
+        def latest_release_tag_name
+          latest_release.tag_name
+        end
+
+        def latest_release
+          client.latest_release(repository)
+        end
+
         def valid_release_name?
           release_name_regexp.match?(version)
         end
@@ -46,12 +80,12 @@ module Ruboty
           /#{release_name_prefix}(\d+\.)?(\d+\.)?(\d+)$/
         end
 
-        def release_name_prefix
-          @release_name_prefix ||= ENV["RELEASE_NAME_PREFIX"] || ""
+        def release_name_prefix_length
+          @release_name_prefix_length ||= release_name_prefix.length
         end
 
-        def version
-          @version ||= message[:version]
+        def release_name_prefix
+          @release_name_prefix ||= ENV["RELEASE_NAME_PREFIX"] || ""
         end
 
         def changelog

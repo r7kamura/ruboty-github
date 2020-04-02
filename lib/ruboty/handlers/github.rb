@@ -49,7 +49,7 @@ module Ruboty
       )
 
       on(
-        /create release (?<repo>.+) (?<version>.+)/,
+        /create release (?<repo>.+)/,
         name: "create_release",
         description: "Create a release",
       )
