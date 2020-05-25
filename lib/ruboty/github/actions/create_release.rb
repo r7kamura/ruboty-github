@@ -55,13 +55,22 @@ module Ruboty
 
         def latest_version
           Gem::Version.new(
-            latest_release_tag_name.slice(
-              Range.new(
-                release_name_prefix_length,
-                -1,
-              )
+            latest_release_version_number,
+          )
+        end
+
+        def latest_release_version_number
+          range_start = latest_release_tag_name_matched_to_prefix? ? release_name_prefix_length : 0
+          latest_release_tag_name.slice(
+            Range.new(
+              range_start,
+              -1,
             )
           )
+        end
+
+        def latest_release_tag_name_matched_to_prefix?
+          release_name_regexp.match?(latest_release_tag_name)
         end
 
         def latest_release_tag_name
