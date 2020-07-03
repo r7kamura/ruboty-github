@@ -78,6 +78,12 @@ module Ruboty
         description: "Get changelog"
       )
 
+      on(
+        /list pull request (?<repo>.+)/,
+        name: "list_pull_requests",
+        description: "List Pull Requests",
+      )
+
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
       end
@@ -124,6 +130,10 @@ module Ruboty
 
       def get_changelog(message)
         Ruboty::Github::Actions::GetChangelog.new(message).call
+      end
+
+      def list_pull_requests(message)
+        Ruboty::Github::Actions::ListPullRequests.new(message).call
       end
     end
   end

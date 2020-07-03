@@ -298,4 +298,49 @@ describe Ruboty::Handlers::Github do
       end
     end
   end
+
+  describe "#list_pull_requests" do
+    before do
+      stub_request(:get, "https://api.github.com/repos/#{user}/#{repository}/pulls?state=open").
+        with(
+          headers: {
+            Authorization: "token #{github_access_token}"
+          },
+        ).
+        to_return(
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: [
+            {
+              url: pr_url,
+              title: pr_title,
+            },
+          ].to_json,
+        )
+    end
+
+    let(:body) do
+      %<ruboty list pull request #{user}/#{repository}>
+    end
+
+    let(:pr_url) do
+      "https://github.com/#{user}/#{repository}/pulls/1"
+    end
+
+    let(:pr_title) do
+      "Dummy Pull Request"
+    end
+
+    include_examples "requires access token without access token"
+
+    context 'with access token' do
+      it 'list pull requires in specified repository' do
+        Ruboty::Message.any_instance.should_receive(:reply).with("```\n[#{pr_url}] #{pr_title}\n```")
+        call
+        a_request(:any, //).should have_been_made
+      end
+    end
+  end
 end
