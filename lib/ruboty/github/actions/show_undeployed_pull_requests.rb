@@ -26,10 +26,11 @@ module Ruboty
           if merge_pull_requests.empty?
             message.reply 'No pull requests have been merged since the last deployment.'
           else
+            r = Regexp.union(
+              /\AMerge pull request (?<number>\#\d+).*\n\n(?<title>.+)/,
+              /\A(?<title>.+) \((?<number>#\d+)\)/)
             merge_pull_requests.each do |text|
-              m = text
-                .gsub(/\AMerge pull request (\#\d+).*\n\n/) { "#{$1} " }
-                .gsub(/(?![\r\n\t ])[[:cntrl:]]/, '')
+              m = text.match(r) { |t| "#{t[:number]} #{t[:title]}" }
               message.reply m
             end
           end
@@ -38,7 +39,7 @@ module Ruboty
         def merge_pull_requests
           @merge_pull_requests ||= commits[:commits].map {|commit|
             commit[:commit][:message]
-          }.grep(/\AMerge pull request/)
+          }.grep(/(\A.+ \(#\d+\)|\AMerge pull request)/)
         end
 
         def commits
