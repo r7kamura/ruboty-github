@@ -30,7 +30,6 @@ module Ruboty
               m = text
                 .gsub(/\AMerge pull request (\#\d+).*\n\n/) { "#{$1} " }
                 .gsub(/(?![\r\n\t ])[[:cntrl:]]/, '')
-                .match(/\A(.+) \((#\d+)\)/){|m| "#{m[2]} #{m[1]}"}
               message.reply m
             end
           end
@@ -39,7 +38,7 @@ module Ruboty
         def merge_pull_requests
           @merge_pull_requests ||= commits[:commits].map {|commit|
             commit[:commit][:message]
-          }.grep(/(\A.+ \(#\d+\)|\AMerge pull request)/)
+          }.grep(/\AMerge pull request/)
         end
 
         def commits
