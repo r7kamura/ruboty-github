@@ -12,6 +12,12 @@ module Ruboty
       )
 
       on(
+        /search issues "(?<query>.+)"/,
+        name: "search_issues",
+        description: "Search an issue",
+      )
+
+      on(
         /remember my github token (?<token>.+)\z/,
         name: "remember",
         description: "Remember sender's GitHub access token",
@@ -43,6 +49,10 @@ module Ruboty
 
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
+      end
+
+      def search_issues(message)
+        Ruboty::Github::Actions::SearchIssues.new(message).call
       end
 
       def close_issue(message)

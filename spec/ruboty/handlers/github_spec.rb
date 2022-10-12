@@ -49,9 +49,9 @@ describe Ruboty::Handlers::Github do
       end
 
       it "requires access token" do
-        Ruboty.logger.should_receive(:info).with("I don't know your github access token")
+        expect(robot).to receive(:say).with(hash_including(body: "I don't know your github access token"))
         call
-        a_request(:any, //).should_not have_been_made
+        expect(a_request(:any, //)).not_to have_been_made
       end
     end
   end
@@ -84,7 +84,41 @@ describe Ruboty::Handlers::Github do
     context "with access token" do
       it "creates a new issue with given title on given repository" do
         call
-        a_request(:any, //).should have_been_made
+        expect(a_request(:any, //)).to have_been_made
+      end
+    end
+  end
+
+  describe "#search_issues" do
+    before do
+      stub_request(:get, "https://api.github.com/search/issues?q=#{query}").
+        with(
+          headers: {
+            Authorization: "token #{github_access_token}"
+          },
+        ).
+        to_return(
+          body: "",
+          headers: {
+            "Content-Type" => "application/json",
+          },
+        )
+    end
+
+    let(:query) do
+      "org:increments is:open is:public is:pr"
+    end
+
+    let(:body) do
+      %<ruboty search issues "#{query}">
+    end
+
+    include_examples "requires access token without access token"
+
+    context "with access token" do
+      it "search an issue with given query" do
+        call
+        expect(a_request(:any, //)).to have_been_made
       end
     end
   end
@@ -137,7 +171,7 @@ describe Ruboty::Handlers::Github do
 
     context "with closed issue" do
       it "replies so" do
-        Ruboty.logger.should_receive(:info).with("Closed #{html_url}")
+        expect(robot).to receive(:say).with(hash_including(body: "Closed #{html_url}"))
         call
       end
     end
@@ -155,9 +189,9 @@ describe Ruboty::Handlers::Github do
     end
 
     it "remembers sender's access token in its brain" do
-      Ruboty.logger.should_receive(:info).with("Remembered #{sender}'s github access token")
+      expect(robot).to receive(:say).with(hash_including(body: "Remembered #{sender}'s github access token"))
       call
-      access_tokens[sender].should == github_access_token
+      expect(access_tokens[sender]).to eq(github_access_token)
     end
   end
 end

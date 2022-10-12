@@ -1,3 +1,6 @@
+## Unreleased
+- Add `search issues` command
+
 ## 0.2.3
 - Fix typo
 
