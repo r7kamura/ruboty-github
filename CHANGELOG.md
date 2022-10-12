@@ -1,5 +1,6 @@
 ## Unreleased
 - Add `search issues` command
+- Support test on GitHub Actions
 
 ## 0.2.3
 - Fix typo
