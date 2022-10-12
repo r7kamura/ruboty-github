@@ -1,6 +1,7 @@
 ## Unreleased
 - Add `search issues` command
 - Support test on GitHub Actions
+- Add rubocop, rubocop-rake, rubocop-performance, rubocop-rspec gems
 
 ## 0.2.3
 - Fix typo
