@@ -1,8 +1,10 @@
-require "simplecov"
+# frozen_string_literal: true
+
+require 'simplecov'
 SimpleCov.start
 
-require "ruboty/github"
-require "webmock/rspec"
+require 'ruboty/github'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true

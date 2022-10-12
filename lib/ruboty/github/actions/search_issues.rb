@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ruboty
   module Github
     module Actions
@@ -21,11 +23,11 @@ module Ruboty
 
           message.reply(results.join("\n"))
         rescue Octokit::Unauthorized
-          message.reply("Failed in authentication (401)")
+          message.reply('Failed in authentication (401)')
         rescue Octokit::NotFound
-          message.reply("Could not find that repository")
-        rescue => exception
-          message.reply("Failed by #{exception.class}")
+          message.reply('Could not find that repository')
+        rescue StandardError => e
+          message.reply("Failed by #{e.class}")
         end
 
         def query

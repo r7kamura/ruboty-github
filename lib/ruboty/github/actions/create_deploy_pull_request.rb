@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ruboty
   module Github
     module Actions
@@ -7,28 +9,26 @@ module Ruboty
         def create
           super
 
-          if database_schema_changed?
-            message.reply("@here :warning: This deployment includes some database migrations")
-          end
+          message.reply('@here :warning: This deployment includes some database migrations') if database_schema_changed?
         end
 
         # e.g. master
         def to_branch
-          to.split(":").last
+          to.split(':').last
         end
 
         def body
-           lines = included_pull_requests.map do |pr|
-             "- [##{pr[:number]}](#{pr[:html_url]}): #{pr[:title]} by @#{pr[:user][:login]}"
-           end
-           lines.unshift('## Pull Requests to deploy', '')
-           lines.join("\n")
+          lines = included_pull_requests.map do |pr|
+            "- [##{pr[:number]}](#{pr[:html_url]}): #{pr[:title]} by @#{pr[:user][:login]}"
+          end
+          lines.unshift('## Pull Requests to deploy', '')
+          lines.join("\n")
         end
 
         def included_pull_requests
           numbers = comparison.commits.map do |commit|
             /^Merge pull request #(\d+) from/ =~ commit[:commit][:message]
-            $1
+            ::Regexp.last_match(1)
           end
           numbers.compact.map { |number| client.pull_request(repository, number.to_i) }
         end

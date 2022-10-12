@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ruboty
   module Github
     module Actions
@@ -18,11 +20,11 @@ module Ruboty
         def create_with_error_handling
           create
         rescue Octokit::Unauthorized
-          message.reply("Failed in authentication (401)")
+          message.reply('Failed in authentication (401)')
         rescue Octokit::NotFound
-          message.reply("Could not find that repository")
-        rescue => exception
-          message.reply("Failed by #{exception.class} #{exception}")
+          message.reply('Could not find that repository')
+        rescue StandardError => e
+          message.reply("Failed by #{e.class} #{e}")
         end
 
         def create
@@ -44,12 +46,12 @@ module Ruboty
 
         # e.g. alice
         def from_user
-          from.split("/").first
+          from.split('/').first
         end
 
         # e.g. test
         def from_branch
-          from.split(":").last
+          from.split(':').last
         end
 
         # e.g. bob/foo:master
@@ -59,7 +61,7 @@ module Ruboty
 
         # e.g. bob/foo
         def repository
-          to.split(":").first
+          to.split(':').first
         end
 
         # e.g. alice:test
@@ -69,7 +71,7 @@ module Ruboty
 
         # e.g. master
         def base
-          to.split(":").last
+          to.split(':').last
         end
       end
     end
