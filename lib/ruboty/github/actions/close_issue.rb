@@ -1,23 +1,24 @@
+# frozen_string_literal: true
+
 module Ruboty
   module Github
     module Actions
       class CloseIssue < Base
         def call
-          case
-          when !has_access_token?
+          if !has_access_token?
             require_access_token
-          when has_closed_issue_number?
+          elsif has_closed_issue_number?
             reply_already_closed
           else
             close
           end
         rescue Octokit::Unauthorized
-          message.reply("Failed in authentication (401)")
+          message.reply('Failed in authentication (401)')
         rescue Octokit::NotFound
-          message.reply("Could not find that issue")
-        rescue => exception
-          raise exception
-          message.reply("Failed by #{exception.class}")
+          message.reply('Could not find that issue')
+        rescue StandardError => e
+          raise e
+          message.reply("Failed by #{e.class}")
         end
 
         private
@@ -32,7 +33,7 @@ module Ruboty
         end
 
         def has_closed_issue_number?
-          issue.state == "closed"
+          issue.state == 'closed'
         end
 
         def reply_already_closed

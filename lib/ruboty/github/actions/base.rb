@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Ruboty
   module Github
     module Actions
       class Base
-        NAMESPACE = "github"
+        NAMESPACE = 'github'
 
         attr_reader :message
 
@@ -17,7 +19,7 @@ module Ruboty
         end
 
         def body
-          message[:description] || ""
+          message[:description] || ''
         end
 
         def sender_name
@@ -45,14 +47,14 @@ module Ruboty
         end
 
         def client_options
-          client_options_with_nil_value.reject {|key, value| value.nil? }
+          client_options_with_nil_value.compact
         end
 
         def client_options_with_nil_value
           {
             access_token: access_token,
             api_endpoint: api_endpoint,
-            web_endpoint: web_endpoint,
+            web_endpoint: web_endpoint
           }
         end
 
@@ -66,11 +68,10 @@ module Ruboty
 
         # @note GITHUB_HOST will be deprecated on the next major version
         def github_base_url
-          case
-          when ENV["GITHUB_BASE_URL"]
-            ENV["GITHUB_BASE_URL"]
-          when ENV["GITHUB_HOST"]
-            "https://#{ENV['GITHUB_HOST']}"
+          if ENV.fetch('GITHUB_BASE_URL', nil)
+            ENV.fetch('GITHUB_BASE_URL', nil)
+          elsif ENV.fetch('GITHUB_HOST', nil)
+            "https://#{ENV.fetch('GITHUB_HOST', nil)}"
           end
         end
       end
