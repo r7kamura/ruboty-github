@@ -1,4 +1,9 @@
 ## Unreleased
+
+## 0.3.0
+- Fix a bug that deploy pr messages trigger other actions also
+- Warn when deployment pull request includes database migration
+- Refactor CreateDeployPullRequest
 - Add `search issues` command
 - Support test on GitHub Actions
 - Add rubocop, rubocop-rake, rubocop-performance, rubocop-rspec gems
