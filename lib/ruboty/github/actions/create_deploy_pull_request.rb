@@ -9,7 +9,10 @@ module Ruboty
         def create
           super
 
-          message.reply('@here :warning: This deployment includes some database migrations') if database_schema_changed?
+          return unless database_schema_changed?
+
+          message.reply(ENV.fetch('MIGRATION_WARNING_MESSAGE',
+                                  '@here :warning: This deployment includes some database migrations'))
         end
 
         # e.g. master
