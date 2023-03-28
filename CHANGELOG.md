@@ -1,5 +1,8 @@
 ## Unreleased
 
+## 0.3.1
+- Enable to change migration warning message
+
 ## 0.3.0
 - Fix a bug that deploy pr messages trigger other actions also
 - Warn when deployment pull request includes database migration
