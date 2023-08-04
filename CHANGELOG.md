@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 0.3.2
+- Allow space in merge command
+- Send message when all exceptions
+
 ## 0.3.1
 - Enable to change migration warning message
 
