@@ -44,7 +44,7 @@ module Ruboty
       )
 
       on(
-        /merge #{ISSUE_PATTERN}\z/o,
+        /merge\s+#{ISSUE_PATTERN}\z/o,
         name: 'merge_pull_request',
         description: 'Merge pull request'
       )

@@ -17,8 +17,8 @@ module Ruboty
         rescue Octokit::NotFound
           message.reply('Could not find that issue')
         rescue StandardError => e
-          raise e
           message.reply("Failed by #{e.class}")
+          raise e
         end
 
         private
