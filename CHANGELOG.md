@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Bump actions/checkout from 3 to 4
+
 ## 0.3.2
 - Allow space in merge command
 - Send message when all exceptions
