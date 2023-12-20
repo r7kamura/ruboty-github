@@ -1,6 +1,8 @@
 ## Unreleased
 
+## 0.3.3
 - Bump actions/checkout from 3 to 4
+- Enable to change after merge custom message
 
 ## 0.3.2
 - Allow space in merge command
