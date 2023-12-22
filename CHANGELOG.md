@@ -1,6 +1,9 @@
 ## Unreleased
 
 ## 0.3.3
+- Fix bug of v0.3.3
+
+## 0.3.3
 - Bump actions/checkout from 3 to 4
 - Enable to change after merge custom message
 
