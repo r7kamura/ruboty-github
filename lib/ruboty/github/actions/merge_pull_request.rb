@@ -21,7 +21,7 @@ module Ruboty
           custom_message = ENV.fetch('AFTER_MERGE_MESSAGE', nil)
           target_repository = ENV.fetch('AFTER_MERGE_MESSAGE_TARGET_REPOSITORY', '')
 
-          return unless (repository == target_repository) && custom_message
+          return true unless (repository == target_repository) && custom_message
 
           message.reply(custom_message)
         end
