@@ -24,4 +24,4 @@ GITHUB_BASE_URL - Pass GitHub base URL if needed (e.g. https://github.example.co
 ```
 
 ## Image
-![](https://raw.githubusercontent.com/r7kamura/ruboty-github/master/images/screenshot.png)
+![](https://raw.githubusercontent.com/r7kamura/ruboty-github/main/images/screenshot.png)
